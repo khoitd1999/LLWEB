@@ -4,6 +4,15 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
+var mongoose = require('mongoose');
+var config = require('./config');
+
+mongoose.connect(`mongodb+srv://${config.db.username}:${config.db.password}@newcluster.vdff5.mongodb.net/${config.db.dbname}?retryWrites=true&w=majority`, (err) => {
+  if (err) 
+    console.log(err);
+  else 
+    console.log('Mongodb connected successfully');
+});
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -25,6 +34,7 @@ app.use(cors());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api/tra-cuu-tu', translate);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

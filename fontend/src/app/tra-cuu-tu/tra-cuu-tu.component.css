@@ -14,6 +14,7 @@ select {
   border: 1px solid rgb(184, 169, 169);
   width: 85%;
   margin-left: 9%;
+  background-color: white;
 }
 
 textarea {
@@ -27,10 +28,21 @@ textarea {
 }
 
 .search-left {
-  border-right: 0.01px solid rgb(184, 169, 169);
+  /* border-right: 0.01px solid rgb(184, 169, 169); */
   background-color: white;
 }
 
 .search-right {
   background-color: white;
+}
+
+.change-text {
+  height: 42px;
+  background-color: white;
+  outline: none;
+  border: none;
+}
+
+.custom-icon {
+  cursor: pointer;
 }
