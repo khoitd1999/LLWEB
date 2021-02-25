@@ -24,4 +24,8 @@ export class TraCuuTuService {
       })
     }
   }
+
+  saveTextTranslate(req): Observable<any> {
+    return this.http.post<any>(this.resoure + '/' + req, {observe: 'response'});
+  }
 }

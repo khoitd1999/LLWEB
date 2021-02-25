@@ -9,22 +9,37 @@ router.get('/', async (req, res) => {
     const pairCode = req.query.fromCode + '-' + req.query.toCode;
     const pairCodeRevert = req.query.toCode + '-' + req.query.fromCode;
     const obj = await translateService.findText(req.query.tx, pairCode, pairCodeRevert);
+    const objResponse = {
+        OriginText: '',
+        TranslateText: '',
+        PairCode: '',
+        _id: ''
+    };
     if (obj) {
         console.log(obj);
+        objResponse._id = obj._id;
+        objResponse.OriginText = req.query.tx;
+        objResponse.PairCode = req.query.fromCode + '-' + req.query.toCode;
         if (obj.PairCode === pairCode) {
-            res.json(obj.TranslateText);
+            objResponse.TranslateText = obj.TranslateText;
+            res.json(objResponse);
         } else {
-            res.json(obj.OriginText);
+            objResponse.TranslateText = obj.OriginText;
+            res.json(objResponse);
         }
     } else {
         // console.log('------------');
         setValueForAPI(req.query.toCode, req.query.tx);
-        reqTranslate.end(function (resTranslate) {
-            if (resTranslate.error) console.log(resTranslate.error);
-            console.log(resTranslate.body[0].translations[0]);
-            const resultText = resTranslate.body[0].translations[0];
-            translateService.saveText(req.query.tx, resultText.text, req.query.fromCode, req.query.toCode);
-            res.json(resultText.text);
+        reqTranslate.end(async function (resTranslate) {
+            if (resTranslate.error) {
+                console.log(resTranslate.error);
+            } else {
+                console.log(resTranslate.body[0].translations[0]);
+                const resultText = resTranslate.body[0].translations[0];
+                // lưu ngầm
+                const objSave = await translateService.saveText(req.query.tx, resultText.text, req.query.fromCode, req.query.toCode);
+                res.json(objSave);
+            }
         });
     }
 });
@@ -49,5 +64,15 @@ function setValueForAPI(toCode, text) {
         }
     ]);
 }
+
+router.post('/:id', async (req, res) => {
+    // lưu để ôn => update lại trường IsSave
+    const obj = await translateService.updateTextToReview(req.params.id);
+    if (obj) {
+        res.json(true);
+    } else {
+        res.json(false);
+    }
+});
 
 module.exports = router;

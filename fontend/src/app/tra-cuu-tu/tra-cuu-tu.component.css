@@ -46,3 +46,80 @@ textarea {
 .custom-icon {
   cursor: pointer;
 }
+
+/*25%*/
+@media only screen and (min-width: 4099px) and (max-width: 5464px) {
+  .welcome-area .header-text {
+    top: -15%;
+  }
+}
+
+/*33%*/
+@media only screen and (min-width: 2733px) and (max-width: 4098px) {
+  .welcome-area .header-text {
+    top: -5%;
+  }
+}
+
+/*50%*/
+@media only screen and (min-width: 2050px) and (max-width: 2732px) {
+  .welcome-area .header-text {
+    top: -1%;
+  }
+}
+
+/*67%*/
+@media only screen and (min-width: 1822px) and (max-width: 2049px) {
+  .welcome-area .header-text {
+    top: 20%;
+  }
+}
+
+/*75%*/
+@media only screen and (min-width: 1708px) and (max-width: 1821px) {
+  .welcome-area .header-text {
+
+  }
+}
+
+/*80%*/
+@media only screen and (min-width: 1618px) and (max-width: 1821px) {
+  .welcome-area .header-text {
+    top: 23%;
+  }
+}
+
+/*90%*/
+@media only screen and (min-width: 1367px) and (max-width: 1618px) {
+  .welcome-area .header-text {
+    top: 33%;
+  }
+}
+
+/*100%*/
+@media only screen and (min-width: 1243px) and (max-width: 1366px) {
+  .welcome-area .header-text {
+    top: 40%;
+  }
+}
+
+/*110%*/
+@media only screen and (min-width: 1094px) and (max-width: 1242px) {
+  .welcome-area .header-text {
+    top: 50%;
+  }
+}
+
+/*125%*/
+@media only screen and (min-width: 912px) and (max-width: 1093px) {
+  .welcome-area .header-text {
+    top: 60%;
+  }
+}
+
+/*150%*/
+@media only screen and (min-width: 0px) and (max-width: 911px) {
+  .welcome-area .header-text {
+    
+  }
+}

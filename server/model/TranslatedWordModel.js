@@ -13,6 +13,9 @@ var translatedWordSchema = new Schema({
     PairCode: {
         type: Schema.Types.String,
         trim: true
+    },
+    IsSave: {
+        type: Schema.Types.Boolean
     }
 });
 

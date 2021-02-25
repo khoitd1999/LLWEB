@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TraCuuTuService } from './tra-cuu-tu.service';
 import { ToastrService } from 'ngx-toastr';
+import { ITraCuuTu, TraCuuTu } from '../share/module/tra-cuu-tu';
 
 @Component({
   selector: 'app-tra-cuu-tu',
@@ -12,18 +13,24 @@ export class TraCuuTuComponent implements OnInit {
   textResult: any;
   fromCode: any;
   toCode: any;
+  objReponse: ITraCuuTu;
   constructor(private traCuuService: TraCuuTuService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.fromCode = 'en';
     this.toCode = 'vi';
+    this.objReponse = new TraCuuTu();
     this.clearText();
   }
 
   searchText(e) {
     e.preventDefault();
     this.traCuuService.getTextTranlate({tx: this.textSearch, fromCode: this.fromCode, toCode: this.toCode}).subscribe(res => {
-      this.textResult = res.body;
+      this.objReponse = res.body;
+      this.textResult = this.objReponse.TranslateText;
+    },
+    () => {
+      this.toastr.error('Từ này không tìm thấy', 'Error');
     });
   }
 
@@ -31,6 +38,13 @@ export class TraCuuTuComponent implements OnInit {
     const tmp = this.fromCode;
     this.fromCode = this.toCode;
     this.toCode = tmp;
+    if (this.textResult.length > 0 && this.textSearch.length > 0) {
+      const tmp1 = this.textResult;
+      this.textResult = this.textSearch;
+      this.textSearch = tmp1;
+    } else if (this.textSearch.length > 0) {
+      this.textSearch = '';
+    }
   }
 
   clearText() {
@@ -41,6 +55,14 @@ export class TraCuuTuComponent implements OnInit {
   saveText() {
     if (this.textResult.length === 0) {
       this.toastr.error('Từ này chưa được tra cứu', 'Error');
+    } else {
+      this.traCuuService.saveTextTranslate(this.objReponse._id).subscribe(res => {
+        if (res) {
+          this.toastr.success('Lưu từ thành công', 'Success');
+        } else {
+          this.toastr.error('Lưu từ thất bại', 'Error');
+        }
+      });
     }
   }
 
