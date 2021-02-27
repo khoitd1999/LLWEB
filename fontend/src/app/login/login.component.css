@@ -1,0 +1,80 @@
+.login-header {
+  margin-top: 10%;
+}
+
+/*25%*/
+@media only screen and (min-width: 4099px) and (max-width: 5464px) {
+  .login-header {
+    margin-top: 3% !important;
+  }
+}
+
+/*33%*/
+@media only screen and (min-width: 2733px) and (max-width: 4098px) {
+  .login-header {
+    margin-top: 5% !important;
+  }
+}
+
+/*50%*/
+@media only screen and (min-width: 2050px) and (max-width: 2732px) {
+  .login-header {
+    margin-top: 6% !important;
+  }
+}
+
+/*67%*/
+@media only screen and (min-width: 1822px) and (max-width: 2049px) {
+  .login-header {
+    margin-top: 9% !important;
+  }
+}
+
+/*75%*/
+@media only screen and (min-width: 1708px) and (max-width: 1821px) {
+  .login-header {
+
+  }
+}
+
+/*80%*/
+@media only screen and (min-width: 1618px) and (max-width: 1821px) {
+  .login-header {
+    margin-top: 10% !important;
+  }
+}
+
+/*90%*/
+@media only screen and (min-width: 1367px) and (max-width: 1618px) {
+  .login-header {
+    margin-top: 10% !important;
+  }
+}
+
+/*100%*/
+@media only screen and (min-width: 1243px) and (max-width: 1366px) {
+  .login-header {
+    margin-top: 12% !important;
+  }
+}
+
+/*110%*/
+@media only screen and (min-width: 1094px) and (max-width: 1242px) {
+  .login-header {
+    margin-top: 14% !important;
+  }
+}
+
+/*125%*/
+@media only screen and (min-width: 912px) and (max-width: 1093px) {
+  .login-header {
+    margin-top: 16% !important;
+  }
+}
+
+/*150%*/
+@media only screen and (min-width: 0px) and (max-width: 911px) {
+  .login-header {
+
+  }
+}

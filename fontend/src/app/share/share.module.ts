@@ -5,8 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { TraCuuTuModule } from '../tra-cuu-tu/tra-cuu-tu.module';
 import { ToastrModule } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [
@@ -18,7 +18,8 @@ import { ToastrModule } from 'ngx-toastr';
   ],
   exports: [
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
   ]
 })
 

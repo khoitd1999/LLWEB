@@ -1,0 +1,54 @@
+<div class="login-header">
+    <div class="cotainer">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                      <h4 *ngIf="this.isLogin">Đăng nhập</h4>
+                      <h4 *ngIf="!this.isLogin">Đăng Ký</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="" method="">
+                            <div class="form-group row">
+                                <label for="email_address" class="col-md-4 col-form-label text-md-right">Tài khoản</label>
+                                <div class="col-md-6">
+                                    <input type="text" id="email_address" class="form-control" name="tk" required autofocus>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="password" class="col-md-4 col-form-label text-md-right">Mật khẩu</label>
+                                <div class="col-md-6">
+                                    <input type="password" id="password" class="form-control" name="mk" [required]=true>
+                                </div>
+                            </div>
+
+                            <div class="form-group row" *ngIf="!this.isLogin">
+                              <label for="password" class="col-md-4 col-form-label text-md-right">Xác nhận mật khẩu</label>
+                              <div class="col-md-6">
+                                  <input type="password" id="password" class="form-control" name="xnmk" [required]=true>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6 offset-md-4" *ngIf="this.isLogin">
+                                <button type="button" class="btn btn-outline-success">
+                                    Đăng nhập
+                                </button>
+                                <button (click)="register()" style="margin-left: 10px;" type="button" class="btn btn-outline-danger">
+                                    Đăng ký
+                                </button>
+                            </div>
+                            <div class="col-md-6 offset-md-4" *ngIf="!this.isLogin">
+                              <button type="button" class="btn btn-outline-success">
+                                  Tạo
+                              </button>
+                              <button (click)="login()" style="margin-left: 10px;" type="button" class="btn btn-outline-danger">
+                                  Quay lại
+                              </button>
+                          </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

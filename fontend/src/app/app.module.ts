@@ -19,6 +19,10 @@ import { RouterModule } from '@angular/router';
       {
         path: '',
         loadChildren: './tra-cuu-tu/tra-cuu-tu.module#TraCuuTuModule'
+      },
+      {
+        path: 'login',
+        loadChildren: './login/login.module#LoginModule'
       }
     ])
   ],
