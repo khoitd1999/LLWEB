@@ -22,4 +22,12 @@ export class NavbarComponent implements OnInit {
   home() {
     this.route.navigate(['']);
   }
+
+  checkLogin() {
+    return sessionStorage.getItem('user');
+  }
+
+  logout() {
+    sessionStorage.removeItem('user');
+  }
 }

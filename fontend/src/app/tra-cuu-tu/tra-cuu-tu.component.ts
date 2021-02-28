@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TraCuuTuService } from './tra-cuu-tu.service';
 import { ToastrService } from 'ngx-toastr';
 import { ITraCuuTu, TraCuuTu } from '../share/module/tra-cuu-tu';
+import { User } from '../share/module/user';
 
 @Component({
   selector: 'app-tra-cuu-tu',
@@ -53,16 +54,20 @@ export class TraCuuTuComponent implements OnInit {
   }
 
   saveText() {
-    if (this.textResult.length === 0) {
-      this.toastr.error('Từ này chưa được tra cứu', 'Error');
+    if (sessionStorage.getItem('user')) {
+      if (this.textResult.length === 0) {
+        this.toastr.error('Từ này chưa được tra cứu', 'Error');
+      } else {
+        this.traCuuService.saveTextTranslate(this.objReponse._id).subscribe(res => {
+          if (res) {
+            this.toastr.success('Lưu từ thành công', 'Success');
+          } else {
+            this.toastr.error('Lưu từ thất bại', 'Error');
+          }
+        });
+      }
     } else {
-      this.traCuuService.saveTextTranslate(this.objReponse._id).subscribe(res => {
-        if (res) {
-          this.toastr.success('Lưu từ thành công', 'Success');
-        } else {
-          this.toastr.error('Lưu từ thất bại', 'Error');
-        }
-      });
+      this.toastr.error('Vui lòng đăng nhập để lưu từ!', 'Error');
     }
   }
 

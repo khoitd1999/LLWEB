@@ -12,9 +12,8 @@
                   <ul class="nav">
                       <li><a href="#">Ôn tập</a></li>
                       <li><a href="#">Đề thi</a></li>
-                      <li><a (click)="login()">Đăng nhập</a></li>
-                      <li><a href="#"></a></li>
-                      <li><a href="#"></a></li>
+                      <li *ngIf="!checkLogin()"><a (click)="login()">Đăng nhập</a></li>
+                      <li *ngIf="checkLogin()"><a (click)="logout()">Đăng xuất</a></li>
                   </ul>
                   <a class='menu-trigger'>
                       <span>Menu</span>

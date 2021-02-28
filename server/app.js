@@ -17,6 +17,7 @@ mongoose.connect(`mongodb+srv://${config.db.username}:${config.db.password}@newc
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var translate = require('./controllers/TranslateController');
+var user = require('./controllers/UserController');
 
 var app = express();
 
@@ -34,6 +35,7 @@ app.use(cors());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api/tra-cuu-tu', translate);
+app.use('/api/user', user);
 
 
 // catch 404 and forward to error handler

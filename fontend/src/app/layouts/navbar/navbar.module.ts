@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { MatToolbarModule } from "@angular/material";
+import { ShareModule } from "src/app/share/share.module";
 import { NavbarComponent } from "./navbar.component";
 
 @NgModule({
@@ -7,7 +8,8 @@ import { NavbarComponent } from "./navbar.component";
     NavbarComponent
   ],
   imports:[
-    MatToolbarModule
+    MatToolbarModule,
+    ShareModule
   ],
   exports:[
     NavbarComponent
