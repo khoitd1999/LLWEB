@@ -13,4 +13,8 @@ export class LoginService {
   createAccount(req): Observable<any> {
     return this.http.post<any>(this.resoure, req, {observe: 'response'});
   }
+
+  login(req): Observable<any> {
+    return this.http.post<any>(this.resoure + '/login', req, { observe: 'response' });
+  }
 }

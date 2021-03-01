@@ -18,5 +18,11 @@ module.exports = {
         return User.count(
             { username: { $regex: '^' + name + '$', $options: 'i' } }
         ).exec();
+    },
+    login: (user) => {
+        return User.findOne({username: user.username, password: user.password}).exec();
+    },
+    findIDByUserName: (username) => {
+        return User.findOne({username: username}, {_id: 1}).exec();
     }
 }

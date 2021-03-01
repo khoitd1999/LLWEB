@@ -16,8 +16,4 @@ export class TraCuuTuService {
     const option = createParams(req);
     return this.http.get<any>(this.resoure, {params: req, observe: 'response'});
   }
-
-  saveTextTranslate(req): Observable<any> {
-    return this.http.post<any>(this.resoure + '/' + req, {observe: 'response'});
-  }
 }

@@ -3,6 +3,7 @@ import { TraCuuTuService } from './tra-cuu-tu.service';
 import { ToastrService } from 'ngx-toastr';
 import { ITraCuuTu, TraCuuTu } from '../share/module/tra-cuu-tu';
 import { User } from '../share/module/user';
+import { ReviewService } from '../share/services/review.service';
 
 @Component({
   selector: 'app-tra-cuu-tu',
@@ -15,7 +16,11 @@ export class TraCuuTuComponent implements OnInit {
   fromCode: any;
   toCode: any;
   objReponse: ITraCuuTu;
-  constructor(private traCuuService: TraCuuTuService, private toastr: ToastrService) { }
+  constructor(
+    private traCuuService: TraCuuTuService,
+    private toastr: ToastrService,
+    private reviewService: ReviewService
+  ) { }
 
   ngOnInit() {
     this.fromCode = 'en';
@@ -58,7 +63,9 @@ export class TraCuuTuComponent implements OnInit {
       if (this.textResult.length === 0) {
         this.toastr.error('Từ này chưa được tra cứu', 'Error');
       } else {
-        this.traCuuService.saveTextTranslate(this.objReponse._id).subscribe(res => {
+        const user = JSON.parse(sessionStorage.getItem('user'));
+        const obj = {user: user.username, word: this.objReponse._id};
+        this.reviewService.saveWordToReview(obj).subscribe(res => {
           if (res) {
             this.toastr.success('Lưu từ thành công', 'Success');
           } else {

@@ -31,7 +31,7 @@
                             </div>
 
                             <div class="col-md-6 offset-md-4" *ngIf="this.isLogin">
-                                <button type="button" class="btn btn-outline-success">
+                                <button (click)="login()" type="button" class="btn btn-outline-success">
                                     Đăng nhập
                                 </button>
                                 <button (click)="register()" style="margin-left: 10px;" type="button" class="btn btn-outline-danger">
@@ -42,7 +42,7 @@
                               <button (click)="createAccount()" type="button" class="btn btn-outline-success">
                                   Tạo
                               </button>
-                              <button (click)="login()" style="margin-left: 10px;" type="button" class="btn btn-outline-danger">
+                              <button (click)="backToLogin()" style="margin-left: 10px;" type="button" class="btn btn-outline-danger">
                                   Quay lại
                               </button>
                           </div>

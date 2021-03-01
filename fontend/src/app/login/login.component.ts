@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Session } from 'inspector';
 import { ToastrService } from 'ngx-toastr';
 import { IUser, User } from '../share/module/user';
 import { LoginService } from './login.service';
@@ -35,8 +34,11 @@ export class LoginComponent implements OnInit {
     this.user.role = 1;
   }
 
-  login() {
+  backToLogin() {
     this.isLogin = true;
+    this.re_password = '';
+    this.user = new User('', '', 1);
+    this.user.role = 1;
   }
 
   createAccount() {
@@ -47,7 +49,7 @@ export class LoginComponent implements OnInit {
             this.toastr.error(res.body.message, 'Error');
           } else {
             this.toastr.success('Tạo tài khoản thành công', 'Success');
-            sessionStorage.setItem('user', res.body);
+            sessionStorage.setItem('user', JSON.stringify(res.body));
             this.route.navigate(['']);
           }
         } else {
@@ -58,12 +60,35 @@ export class LoginComponent implements OnInit {
   }
 
   checkErr() {
-    if (this.user.username === '' || this.user.password === '' || this.re_password === '') {
-      this.toastr.error('Nhập đầy đủ các trường bắt buộc', 'Error');
-      return true;
-    } else if (this.user.password !== this.re_password) {
-      this.toastr.error('Mật khẩu nhập lại sai', 'Error');
+    if (this.isLogin) {
+      if (this.user.username === '' || this.user.password === '') {
+        this.toastr.error('Nhập đầy đủ các trường bắt buộc', 'Error');
+        return true;
+      }
+    } else {
+      if (this.user.username === '' || this.user.password === '' || this.re_password === '') {
+        this.toastr.error('Nhập đầy đủ các trường bắt buộc', 'Error');
+        return true;
+      } else if (this.user.password !== this.re_password) {
+        this.toastr.error('Mật khẩu nhập lại sai', 'Error');
+      }
     }
     return false;
+  }
+
+  login() {
+    if (!this.checkErr()) {
+      this.loginService.login(this.user).subscribe(res => {
+        if (res.body) {
+          if (res.body.message) {
+            this.toastr.error(res.body.message, 'Error');
+          } else {
+            this.toastr.success('Đăng nhập thành công', 'Success');
+            sessionStorage.setItem('user', JSON.stringify(res.body));
+            this.route.navigate(['']);
+          }
+        }
+      });
+    }
   }
 }

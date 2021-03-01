@@ -9,5 +9,9 @@ module.exports = {
             obj = await userRepository.createAccount(user);
         }
         return obj;
+    },
+    login: async (user) => {
+        const obj = await userRepository.login(user);
+        return obj;       
     }
 }

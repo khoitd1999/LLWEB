@@ -18,6 +18,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var translate = require('./controllers/TranslateController');
 var user = require('./controllers/UserController');
+var review = require('./controllers/ReviewController');
 
 var app = express();
 
@@ -32,10 +33,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// app.use('/', indexRouter);
+// app.use('/users', usersRouter);
 app.use('/api/tra-cuu-tu', translate);
 app.use('/api/user', user);
+app.use('/api/review', review);
 
 
 // catch 404 and forward to error handler
