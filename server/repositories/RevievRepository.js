@@ -12,5 +12,8 @@ module.exports = {
                 }
             });
         });
+    },
+    countByUserAndWord: (req) => {
+        return Review.count({userID: req.userID, wordID: mongoose.mongo.ObjectId(req.wordID)}).exec();
     }
 }

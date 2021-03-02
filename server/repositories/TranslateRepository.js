@@ -27,14 +27,14 @@ module.exports = {
         return TranslateWord.findOne({  $and: [ 
                                                 {
                                                     $or: [
-                                                        { OriginText: { $regex: '^' + originText + '$', $options: 'ix' } },
-                                                        { TranslateText: { $regex: '^' + originText + '$', $options: 'ix' } }
+                                                        { OriginText: { $regex: '^' + originText + '$', $options: 'i' } },
+                                                        { TranslateText: { $regex: '^' + originText + '$', $options: 'i' } }
                                                     ]
                                                 },
                                                 {
                                                     $or: [
-                                                        { PairCode: { $regex: '^' + pairCode + '$', $options: 'ix' } },
-                                                        { PairCode: { $regex: '^' + pairCodeRevert + '$', $options: 'ix' } },
+                                                        { PairCode: { $regex: '^' + pairCode + '$', $options: 'i' } },
+                                                        { PairCode: { $regex: '^' + pairCodeRevert + '$', $options: 'i' } },
                                                     ]
                                                 }  
                                             ]

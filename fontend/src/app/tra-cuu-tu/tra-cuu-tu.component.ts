@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TraCuuTuService } from './tra-cuu-tu.service';
 import { ToastrService } from 'ngx-toastr';
 import { ITraCuuTu, TraCuuTu } from '../share/module/tra-cuu-tu';
-import { User } from '../share/module/user';
-import { ReviewService } from '../share/services/review.service';
+import { ReviewService } from '../review/review.service';
 
 @Component({
   selector: 'app-tra-cuu-tu',
@@ -16,6 +15,7 @@ export class TraCuuTuComponent implements OnInit {
   fromCode: any;
   toCode: any;
   objReponse: ITraCuuTu;
+  isLoading: boolean;
   constructor(
     private traCuuService: TraCuuTuService,
     private toastr: ToastrService,
@@ -23,21 +23,27 @@ export class TraCuuTuComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.fromCode = 'en';
-    this.toCode = 'vi';
+    this.fromCode = 'vi';
+    this.toCode = 'en';
+    this.isLoading = false;
     this.objReponse = new TraCuuTu();
     this.clearText();
   }
 
   searchText(e) {
     e.preventDefault();
-    this.traCuuService.getTextTranlate({tx: this.textSearch, fromCode: this.fromCode, toCode: this.toCode}).subscribe(res => {
-      this.objReponse = res.body;
-      this.textResult = this.objReponse.TranslateText;
-    },
-    () => {
-      this.toastr.error('Từ này không tìm thấy', 'Error');
-    });
+    if (this.textSearch.length > 0 && !this.isLoading) {
+      const tmp = this.standardWord();
+      this.isLoading = true;
+      this.traCuuService.getTextTranlate({tx: tmp, fromCode: this.fromCode, toCode: this.toCode}).subscribe(res => {
+        this.isLoading = false;
+        this.objReponse = res.body;
+        this.textResult = this.objReponse.TranslateText;
+      },
+      () => {
+        this.toastr.error('Từ này không tìm thấy', 'Error');
+      });
+    }
   }
 
   changeCodeText() {
@@ -62,14 +68,18 @@ export class TraCuuTuComponent implements OnInit {
     if (sessionStorage.getItem('user')) {
       if (this.textResult.length === 0) {
         this.toastr.error('Từ này chưa được tra cứu', 'Error');
-      } else {
+      } else if (!this.isLoading) {
         const user = JSON.parse(sessionStorage.getItem('user'));
         const obj = {user: user.username, word: this.objReponse._id};
+        this.isLoading = true;
         this.reviewService.saveWordToReview(obj).subscribe(res => {
-          if (res) {
+          this.isLoading = false;
+          if (res.body.status) {
             this.toastr.success('Lưu từ thành công', 'Success');
           } else {
-            this.toastr.error('Lưu từ thất bại', 'Error');
+            if (res.body.message) {
+              this.toastr.error(res.body.message, 'Error');
+            }
           }
         });
       }
@@ -80,5 +90,16 @@ export class TraCuuTuComponent implements OnInit {
 
   changeTextSearch() {
     this.textResult = '';
+  }
+
+  standardWord() {
+    const arr = this.textSearch.split(' ');
+    let tmp = '';
+    arr.forEach(element => {
+      if (element !== '') {
+        tmp += element + ' ';
+      }
+    });
+    return tmp.trim();
   }
 }
